@@ -8,18 +8,6 @@ const launchpadApps: LaunchpadData[] = [
     link: "https://github.com/leviance/audio-worklet-loader"
   },
   {
-    id: "ffmpeg-lab",
-    title: "FFmpeg Lab",
-    img: "img/icons/vscode.png",
-    link: "https://github.com/leviance/ffmpeg-tutorial"
-  },
-  {
-    id: "data-compression",
-    title: "Compression",
-    img: "img/icons/folder-generic.png",
-    link: "https://github.com/leviance/data-compression"
-  },
-  {
     id: "pinet",
     title: "Pinet",
     img: "img/icons/messages.png",

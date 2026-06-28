@@ -65,7 +65,7 @@
       role: "Backend, Identity, and Trust Infrastructure",
       period: "Research track",
       detail:
-        "Researching SSI, translating and systematizing identity concepts in Vietnamese, and shaping Identra, CertNet, SCH, Pinet, and AI Trust Agent as related trust-infrastructure ideas."
+        "Researching SSI, translating and systematizing identity concepts in Vietnamese, and shaping Identra, CertNet, and Pinet as related trust-infrastructure ideas."
     }
   ],
   hobbies: [
@@ -81,6 +81,27 @@
     "Use engineering and product craft to build a Vietnam-rooted technology company with global ambition."
   ]
 };
+
+export const terminalSkills = [
+  "Node.js",
+  "C/C++",
+  "Typescript",
+  "Webassembly",
+  "FFmpeg",
+  "HashiCorp Vault",
+  "Compression / codecs",
+  "Cryptography"
+];
+
+export const terminalExperience = portfolioProfile.experience.map((item) =>
+  item.company === "Independent research and product work"
+    ? {
+        ...item,
+        detail:
+          "Researching SSI, translating and systematizing identity concepts in Vietnamese, and shaping Identra, CertNet, and Pinet as related trust-infrastructure ideas."
+      }
+    : item
+);
 
 export const spotlightProjects = [
   {
@@ -117,6 +138,17 @@ export const spotlightProjects = [
     tech: ["Identity wallet", "Selective disclosure", "Secure messaging", "Passkey", "Recovery"]
   },
   {
+    id: "identra-website",
+    title: "identra-website",
+    kind: "Website Repo",
+    folder: "Identity",
+    repo: "identra-awncorp/identra-website",
+    url: "https://github.com/identra-awncorp/identra-website",
+    summary:
+      "Public website repository for presenting the Identra identity-wallet concept and its trust-centered product direction.",
+    tech: ["Website", "Identity", "Product"]
+  },
+  {
     id: "certnet",
     title: "CertNet",
     kind: "System Architecture",
@@ -128,26 +160,15 @@ export const spotlightProjects = [
     tech: ["PoA", "Observer node", "DID registry", "Audit log", "Dual-token model"]
   },
   {
-    id: "sch",
-    title: "SCH - Smart Contract Hosting",
-    kind: "Product Concept",
+    id: "certnet-website",
+    title: "certnet-website",
+    kind: "Website Repo",
     folder: "Blockchain",
-    repo: "",
-    url: "",
+    repo: "certnet-awncorp/certnet-website",
+    url: "https://github.com/certnet-awncorp/certnet-website",
     summary:
-      "Smart Contract Hosting concept for making contract deployment, verification, and operations more accessible inside a broader digital-trust ecosystem.",
-    tech: ["Smart contracts", "Hosting", "Verification", "Developer tooling"]
-  },
-  {
-    id: "ai-trust-agent",
-    title: "AI Trust Agent",
-    kind: "Research Concept",
-    folder: "Identity / AI",
-    repo: "",
-    url: "",
-    summary:
-      "Research direction for agents that help people reason about credentials, permissions, trust signals, and identity-related decisions without hiding the security model.",
-    tech: ["AI agents", "DID", "VC", "Trust signals", "User agency"]
+      "Public website repository for presenting CertNet as verifiable trust infrastructure around credentials, auditability, and blockchain-backed validation.",
+    tech: ["Website", "Blockchain", "Trust infrastructure"]
   },
   {
     id: "audio-worklet-loader",
@@ -161,26 +182,15 @@ export const spotlightProjects = [
     tech: ["JavaScript", "Webpack", "AudioWorklet"]
   },
   {
-    id: "wasm-ffmpeg-lab",
-    title: "WebAssembly / FFmpeg Lab",
-    kind: "Repo Group",
-    folder: "Systems Lab",
-    repo: "ffmpeg-tutorial",
-    url: "https://github.com/leviance/ffmpeg-tutorial",
-    summary:
-      "Learning lab around FFmpeg 5.0, C/C++, WebAssembly, and Emscripten, showing the lower-level path behind browser multimedia work.",
-    tech: ["C/C++", "FFmpeg", "WebAssembly", "Emscripten"]
-  },
-  {
-    id: "data-compression",
-    title: "Data Compression",
+    id: "macos-portfolio",
+    title: "macos-portfolio",
     kind: "Public Repo",
-    folder: "Systems Lab",
-    repo: "data-compression",
-    url: "https://github.com/leviance/data-compression",
+    folder: "Portfolio",
+    repo: "macos-portfolio",
+    url: "https://github.com/leviance/macos-portfolio",
     summary:
-      "C++ systems-learning repo around compression, aligned with interest in codecs, entropy coding, ANS, FSE, and performance-oriented algorithms.",
-    tech: ["C++", "Compression", "Algorithms", "Codecs"]
+      "The interactive macOS-style portfolio website, built as a desktop workspace for exploring resume, projects, terminal commands, and source links.",
+    tech: ["React", "Vite", "TypeScript", "macOS UI"]
   },
   {
     id: "pinet",
@@ -206,21 +216,34 @@ export const spotlightProjects = [
   }
 ];
 
+export const pinnedFinderRepos = ["certnet-website", "identra-website", "audio-worklet-loader", "macos-portfolio"];
+
 export const archiveRepos = [
   "shop-acc-game",
   "Gomart",
-  "ace-editor-vue3",
+  "webassembly-tutorial",
+  "wasm-tutorial",
+  "FLV-test-link",
+  "did-resolver",
+  "matic-docs",
+  "polygon-smart-contract-tutorial",
   "Flappy-Bird-with-Javascript",
+  "ace-editor-vue3",
+  "zelo-app-chat",
+  "vue2-ace-editor",
+  "pinet-vue",
+  "handson-ml2",
   "Vue-Ecommerce-Store",
   "Telecom-Template",
   "Neural-Network-for-Mnist-dataset-Hand-writing",
-  "polygon-smart-contract-tutorial",
   "map-covid-19",
   "classified",
   "Awesome_chat",
   "Message-App"
 ];
 
-export const repoUrl = (repo: string) => `https://github.com/leviance/${repo}`;
-export const vscodeUrl = (repo: string) => `https://vscode.dev/github/leviance/${repo}`;
+export const repoSlug = (repo: string) => (repo.includes("/") ? repo : `leviance/${repo}`);
+export const repoUrl = (repo: string) => `https://github.com/${repoSlug(repo)}`;
+export const vscodeUrl = (repo: string) => `https://vscode.dev/github/${repoSlug(repo)}`;
+export const github1sUrl = (repo: string) => `https://github1s.com/${repoSlug(repo)}`;
 

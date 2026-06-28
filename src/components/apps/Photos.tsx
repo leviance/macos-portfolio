@@ -15,9 +15,7 @@ const PHOTOS: Photo[] = [
   { id: "ssi", url: "/img/icons/sf-icons/wallet.svg", label: "SSI Translation", date: "Identity research", albums: ["research"] },
   { id: "identra", url: "/img/icons/sf-icons/fingerprint.svg", label: "Identra", date: "Identity wallet concept", albums: ["case", "research"] },
   { id: "certnet", url: "/img/icons/sf-icons/network.svg", label: "CertNet", date: "Trust infrastructure", albums: ["case", "research"] },
-  { id: "sch", url: "/img/icons/sf-icons/codefile.svg", label: "SCH", date: "Smart Contract Hosting", albums: ["case"] },
   { id: "audio-worklet", url: "/img/icons/codefile.png", label: "Audio Worklet Loader", date: "Public repo", albums: ["public"] },
-  { id: "ffmpeg", url: "/img/icons/vscode.png", label: "WebAssembly / FFmpeg Lab", date: "Public repo group", albums: ["public"] },
   { id: "pinet", url: "/img/icons/messages.png", label: "Pinet / Pinet Vue", date: "Messaging direction", albums: ["public"] },
 ];
 

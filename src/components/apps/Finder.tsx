@@ -1,44 +1,70 @@
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { archiveRepos, portfolioProfile, repoUrl, spotlightProjects, vscodeUrl } from "~/configs/portfolio";
+import {
+  archiveRepos,
+  pinnedFinderRepos,
+  portfolioProfile,
+  repoUrl,
+  spotlightProjects
+} from "~/configs/portfolio";
 
 type ViewMode = "icons" | "list";
-type SidebarTarget = "spotlight" | "public" | "case" | "archive";
+type SidebarTarget = "spotlight" | "public" | "archive";
+type FinderProject = {
+  id: string;
+  title: string;
+  kind: string;
+  folder: string;
+  repo: string;
+  url: string;
+  summary: string;
+  tech: string[];
+};
 
 const sidebar = [
-  { id: "spotlight", label: "Spotlight", icon: "/img/icons/sf-icons/applications.svg" },
+  { id: "spotlight", label: "Pinned Repos", icon: "/img/icons/sf-icons/applications.svg" },
   { id: "public", label: "Public Repos", icon: "/img/icons/sf-icons/desktop.svg" },
-  { id: "case", label: "Case Studies", icon: "/img/icons/sf-icons/doc.svg" },
   { id: "archive", label: "Archive", icon: "/img/icons/sf-icons/folder.svg" }
 ] as const;
 
 const folderIcon = "/img/icons/folder-generic.png";
-const repoIcon = "/img/icons/codefile.png";
+const repositoryProjects: FinderProject[] = spotlightProjects
+  .filter((project) => Boolean(project.repo))
+  .map((project) => ({
+    ...project,
+    repo: project.repo,
+    url: project.url || repoUrl(project.repo)
+  }));
+const pinnedProjects = pinnedFinderRepos
+  .map((target) => repositoryProjects.find((project) => project.id === target || project.repo === target))
+  .filter((project): project is FinderProject => Boolean(project));
+const pinnedProjectIds = new Set(pinnedProjects.map((project) => project.id));
+const unpinnedProjects = repositoryProjects.filter((project) => !pinnedProjectIds.has(project.id));
 
 export default function Finder() {
   const [target, setTarget] = useState<SidebarTarget>("spotlight");
   const [viewMode, setViewMode] = useState<ViewMode>("icons");
   const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState(spotlightProjects[0].id);
+  const [selected, setSelected] = useState(pinnedProjects[0]?.id || repositoryProjects[0]?.id || archiveRepos[0] || "");
 
   const items = useMemo(() => {
+    const archiveItems: FinderProject[] = archiveRepos.map((repo) => ({
+      id: repo,
+      title: repo,
+      kind: "Public Repo",
+      folder: "Archive",
+      repo,
+      url: repoUrl(repo),
+      summary: "Public GitHub repository kept available for source exploration.",
+      tech: ["GitHub"]
+    }));
+
     const base =
       target === "archive"
-        ? archiveRepos.map((repo) => ({
-            id: repo,
-            title: repo,
-            kind: "Public Repo",
-            folder: "Archive",
-            repo,
-            url: repoUrl(repo),
-            summary: "Older public repository kept available for source exploration.",
-            tech: ["GitHub"]
-          }))
-        : spotlightProjects.filter((project) => {
-            if (target === "public") return Boolean(project.repo);
-            if (target === "case") return !project.repo;
-            return true;
-          });
+        ? archiveItems
+        : target === "public"
+          ? [...pinnedProjects, ...unpinnedProjects, ...archiveItems]
+        : pinnedProjects;
 
     const q = search.trim().toLowerCase();
     if (!q) return base;
@@ -50,10 +76,10 @@ export default function Finder() {
     );
   }, [target, search]);
 
-  const active = items.find((item) => item.id === selected) || items[0] || spotlightProjects[0];
+  const active = items.find((item) => item.id === selected) || items[0] || pinnedProjects[0] || repositoryProjects[0];
 
-  const openProject = (project: typeof spotlightProjects[number]) => {
-    if (project.repo) window.open(vscodeUrl(project.repo), "_blank", "noopener,noreferrer");
+  const openProject = (project: FinderProject) => {
+    window.dispatchEvent(new CustomEvent("finder:openVSCode", { detail: { repo: project.repo } }));
   };
 
   return (
@@ -71,9 +97,9 @@ export default function Finder() {
               const first =
                 item.id === "archive"
                   ? archiveRepos[0]
-                  : spotlightProjects.find((project) =>
-                      item.id === "public" ? project.repo : item.id === "case" ? !project.repo : true
-                    )?.id;
+                  : item.id === "public"
+                    ? pinnedProjects[0]?.id || unpinnedProjects[0]?.id || archiveRepos[0]
+                    : pinnedProjects[0]?.id;
               if (first) setSelected(first);
             }}
             className={`mx-2 mb-1 flex h-8 w-[calc(100%-16px)] items-center gap-2 rounded-[8px] px-3 text-left text-[13px] ${
@@ -113,7 +139,7 @@ export default function Finder() {
             ›
           </button>
           <div className="flex-1 text-center text-[13px] font-700">
-            {target === "spotlight" ? "Spotlight Projects" : sidebar.find((item) => item.id === target)?.label}
+            {target === "spotlight" ? "Pinned GitHub Repositories" : sidebar.find((item) => item.id === target)?.label}
           </div>
           <div className="flex rounded-[8px] bg-black/6 p-0.5">
             <button
@@ -159,7 +185,7 @@ export default function Finder() {
                     }`}
                   >
                     <img
-                      src={project.repo ? repoIcon : folderIcon}
+                      src={folderIcon}
                       alt=""
                       className="h-[54px] w-[54px] object-contain drop-shadow"
                     />
@@ -186,7 +212,7 @@ export default function Finder() {
                     }`}
                   >
                     <span className="flex items-center gap-2">
-                      <img src={project.repo ? repoIcon : folderIcon} alt="" className="h-5 w-5 object-contain" />
+                      <img src={folderIcon} alt="" className="h-5 w-5 object-contain" />
                       {project.title}
                     </span>
                     <span>{project.kind}</span>
@@ -199,7 +225,7 @@ export default function Finder() {
 
           <aside className="hidden w-[270px] shrink-0 border-l border-black/10 bg-white/55 p-4 backdrop-blur-xl lg:block">
             <img
-              src={active.repo ? repoIcon : folderIcon}
+              src={folderIcon}
               alt=""
               className="mx-auto h-[76px] w-[76px] object-contain drop-shadow"
             />
@@ -213,20 +239,18 @@ export default function Finder() {
                 </span>
               ))}
             </div>
-            {active.repo ? (
-              <div className="mt-5 grid gap-2">
-                <a className="rounded-[9px] bg-[#007AFF] px-3 py-2 text-center text-[12px] font-700 text-white" href={repoUrl(active.repo)} target="_blank" rel="noreferrer">
-                  Open GitHub
-                </a>
-                <a className="rounded-[9px] bg-black/7 px-3 py-2 text-center text-[12px] font-700 text-black/70" href={vscodeUrl(active.repo)} target="_blank" rel="noreferrer">
-                  Open VS Code Web
-                </a>
-              </div>
-            ) : (
-              <div className="mt-5 rounded-[10px] bg-black/6 p-3 text-[11px] leading-5 text-black/55">
-                Case-study project. No fake source link is shown.
-              </div>
-            )}
+            <div className="mt-5 grid gap-2">
+              <a className="rounded-[9px] bg-[#007AFF] px-3 py-2 text-center text-[12px] font-700 text-white" href={repoUrl(active.repo)} target="_blank" rel="noreferrer">
+                Open GitHub
+              </a>
+              <button
+                type="button"
+                onClick={() => openProject(active)}
+                className="rounded-[9px] bg-black/7 px-3 py-2 text-center text-[12px] font-700 text-black/70 hover:bg-black/10"
+              >
+                Open VS Code
+              </button>
+            </div>
           </aside>
         </div>
       </main>

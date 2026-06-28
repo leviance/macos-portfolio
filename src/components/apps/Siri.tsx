@@ -8,7 +8,7 @@ import { portfolioProfile } from "~/configs/portfolio";
 type SiriPhase = "idle" | "recording" | "processing" | "speaking" | "error";
 
 const DUNG_INFO = `${portfolioProfile.name} is a Backend & Systems Engineer interested in backend systems, WebAssembly, multimedia pipelines, cryptography, distributed systems, blockchain, and Self-Sovereign Identity.
-Important projects include Milan Player, the Vietnamese Self-Sovereign Identity translation, Identra, CertNet, SCH, Pinet, AI Trust Agent, Audio Worklet Loader, WebAssembly / FFmpeg Lab, Data Compression, and Uni.js.
+Important projects include Milan Player, the Vietnamese Self-Sovereign Identity translation, Identra, CertNet, Pinet, Audio Worklet Loader, macOS Portfolio, and Uni.js.
 Contact: Email ${portfolioProfile.email} | GitHub ${portfolioProfile.github} | LinkedIn ${portfolioProfile.linkedin}
 His resume/profile is available inside the Resume app.`;
 

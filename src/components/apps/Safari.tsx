@@ -10,6 +10,8 @@ interface SafariState {
   currentURL: string;
 }
 
+const SAFARI_HOME_URL = "https://identra.id.vn";
+
 interface SafariProps {
   width?: number;
 }
@@ -156,8 +158,8 @@ const Safari = ({ width = 800 }: SafariProps) => {
   const safariUrl = useStore((state) => state.safariUrl);
   const setSafariUrl = useStore((state) => state.setSafariUrl);
   const [state, setState] = useState<SafariState>({
-    goURL: "",
-    currentURL: ""
+    goURL: SAFARI_HOME_URL,
+    currentURL: SAFARI_HOME_URL
   });
 
   useEffect(() => {

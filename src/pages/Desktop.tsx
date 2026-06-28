@@ -53,6 +53,7 @@ export default function Desktop(props: MacActions) {
   });
   const stateRef = React.useRef(state);
   const handledCloseKeyRef = React.useRef<{ signature: string; time: number } | null>(null);
+  const openVSCodeTimerRef = React.useRef<number | null>(null);
 
   useEffect(() => {
     stateRef.current = state;
@@ -176,6 +177,29 @@ export default function Desktop(props: MacActions) {
       toggleLaunchpad(false);
       openApp("safari");
     };
+    const handleOpenVSCodeRepo = (event: Event) => {
+      const repo = (event as CustomEvent<{ repo?: string }>).detail?.repo?.trim();
+      if (!repo) return;
+
+      useStore.getState().setVSCodeRepo(repo);
+
+      if (openVSCodeTimerRef.current) {
+        window.clearTimeout(openVSCodeTimerRef.current);
+      }
+
+      updateDesktopState((prev) => ({
+        ...prev,
+        showApps: { ...prev.showApps, vscode: false },
+        maxApps: { ...prev.maxApps, vscode: false },
+        minApps: { ...prev.minApps, vscode: false },
+        hideDockAndTopbar: false,
+      }));
+
+      openVSCodeTimerRef.current = window.setTimeout(() => {
+        openVSCodeTimerRef.current = null;
+        openApp("vscode");
+      }, 90);
+    };
     const handleOpenLaunchpad = () => toggleLaunchpad(true);
     const getKeySignature = (e: KeyboardEvent) => `${e.code}:${e.ctrlKey}:${e.altKey}:${e.metaKey}`;
 
@@ -283,6 +307,7 @@ export default function Desktop(props: MacActions) {
     };
 
     window.addEventListener("launchpad:openSafari", handleOpenSafari);
+    window.addEventListener("finder:openVSCode", handleOpenVSCodeRepo);
     window.addEventListener("siri:openLaunchpad", handleOpenLaunchpad);
     window.addEventListener("keydown", handleKeyDown, { capture: true });
     window.addEventListener("keyup", handleKeyUp, { capture: true });
@@ -291,11 +316,15 @@ export default function Desktop(props: MacActions) {
     
     return () => {
       window.removeEventListener("launchpad:openSafari", handleOpenSafari);
+      window.removeEventListener("finder:openVSCode", handleOpenVSCodeRepo);
       window.removeEventListener("siri:openLaunchpad", handleOpenLaunchpad);
       window.removeEventListener("keydown", handleKeyDown, { capture: true });
       window.removeEventListener("keyup", handleKeyUp, { capture: true });
       document.removeEventListener("keydown", handleKeyDown, { capture: true });
       document.removeEventListener("keyup", handleKeyUp, { capture: true });
+      if (openVSCodeTimerRef.current) {
+        window.clearTimeout(openVSCodeTimerRef.current);
+      }
     };
   }, []);
 

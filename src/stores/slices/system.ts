@@ -13,6 +13,7 @@ export interface SystemSlice {
   airdrop: boolean;
   fullscreen: boolean;
   safariUrl: string;
+  vscodeRepo: string;
   focusMode: boolean;
   appearanceMode: AppearanceMode;
   iconStyle: IconStyle;
@@ -26,6 +27,7 @@ export interface SystemSlice {
   setVolume: (v: number) => void;
   setBrightness: (v: number) => void;
   setSafariUrl: (v: string) => void;
+  setVSCodeRepo: (v: string) => void;
   setAppearanceMode: (v: AppearanceMode) => void;
   setIconStyle: (v: IconStyle) => void;
   setTintWindows: (v: boolean) => void;
@@ -52,6 +54,7 @@ export const createSystemSlice: StateCreator<SystemSlice> = (set) => ({
   airdrop: true,
   fullscreen: false,
   safariUrl: "",
+  vscodeRepo: "macos-portfolio",
   focusMode: false,
   appearanceMode: initialAppearanceMode,
   iconStyle: loadSetting<IconStyle>("iconStyle", "default"),
@@ -76,6 +79,7 @@ export const createSystemSlice: StateCreator<SystemSlice> = (set) => ({
   setVolume: (v) => set(() => ({ volume: v })),
   setBrightness: (v) => set(() => ({ brightness: v })),
   setSafariUrl: (v) => set(() => ({ safariUrl: v })),
+  setVSCodeRepo: (v) => set(() => ({ vscodeRepo: v })),
   setAppearanceMode: (v) =>
     set(() => {
       const dark = resolveDark(v);

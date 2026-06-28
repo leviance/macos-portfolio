@@ -1,5 +1,5 @@
 import type { TerminalData } from "~/types";
-import { portfolioProfile, spotlightProjects, repoUrl, vscodeUrl } from "./portfolio";
+import { portfolioProfile, spotlightProjects, repoUrl, terminalExperience, terminalSkills, vscodeUrl } from "./portfolio";
 
 const terminal: TerminalData[] = [
   {
@@ -72,7 +72,7 @@ const terminal: TerminalData[] = [
     type: "file",
     content: (
       <div className="grid grid-cols-3 gap-x-4 gap-y-1">
-        {portfolioProfile.skills.map((skill) => (
+        {terminalSkills.map((skill) => (
           <span key={skill}>{skill}</span>
         ))}
       </div>
@@ -84,7 +84,7 @@ const terminal: TerminalData[] = [
     type: "file",
     content: (
       <div className="space-y-3">
-        {portfolioProfile.experience.map((item) => (
+        {terminalExperience.map((item) => (
           <div key={item.company}>
             <div className="text-yellow-200">{item.role}</div>
             <div className="text-green-300">

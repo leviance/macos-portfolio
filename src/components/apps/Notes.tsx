@@ -66,7 +66,7 @@ const INITIAL_NOTES: Note[] = [
   {
     id: "6",
     title: "Awncorp Ecosystem",
-    body: "Product map: Identra, CertNet, SCH (Smart Contract Hosting), Pinet, and AI Trust Agent. The shared thread is digital trust, secure communication, verifiable credentials, and infrastructure people can reason about.",
+    body: "Product map: Identra, CertNet, and Pinet. The shared thread is digital trust, secure communication, verifiable credentials, and infrastructure people can reason about.",
     date: "Ecosystem",
     dateISO: "2026-06-17",
     color: "#34C759",

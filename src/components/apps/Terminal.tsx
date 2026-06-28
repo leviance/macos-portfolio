@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
 import terminalTree from "~/configs/terminal";
-import { portfolioProfile, repoUrl, spotlightProjects, vscodeUrl } from "~/configs/portfolio";
+import { portfolioProfile, repoUrl, spotlightProjects, terminalExperience, terminalSkills, vscodeUrl } from "~/configs/portfolio";
 import type { TerminalData } from "~/types";
 
 type Row = {
@@ -182,7 +182,7 @@ export default function Terminal() {
       return print(
         trimmed,
         <div className="grid grid-cols-2 gap-x-5 gap-y-1 sm:grid-cols-3">
-          {portfolioProfile.skills.map((skill) => (
+          {terminalSkills.map((skill) => (
             <span key={skill}>{skill}</span>
           ))}
         </div>
@@ -193,7 +193,7 @@ export default function Terminal() {
       return print(
         trimmed,
         <div className="space-y-3">
-          {portfolioProfile.experience.map((item) => (
+          {terminalExperience.map((item) => (
             <div key={item.company}>
               <div className="text-yellow-200">{item.role}</div>
               <div className="text-green-300">

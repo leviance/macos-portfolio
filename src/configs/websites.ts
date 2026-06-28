@@ -34,18 +34,6 @@ const websites: WebsitesData = {
         link: "https://github.com/leviance/audio-worklet-loader",
       },
       {
-        id: "ffmpeg-tutorial",
-        title: "FFmpeg Lab",
-        img: "img/sites/github.svg",
-        link: "https://github.com/leviance/ffmpeg-tutorial",
-      },
-      {
-        id: "data-compression",
-        title: "Compression",
-        img: "img/sites/github.svg",
-        link: "https://github.com/leviance/data-compression",
-      },
-      {
         id: "pinet",
         title: "Pinet",
         img: "img/sites/github.svg",
