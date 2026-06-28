@@ -452,21 +452,19 @@
 }
 
 /* --------- Slider --------- */
-.slider .rangeslider {
-  @apply bg-c-300 w-full h-7 shadow-none m-0 rounded-r-full border-t border-r border-b border-transparent;
+.slider input[type="range"] {
+  @apply w-full h-7 m-0 outline-none appearance-none rounded-r-full border-t border-r border-b border-transparent;
+  background: linear-gradient(to right, var(--color-c-100, #fff) 0 var(--slider-value), var(--color-c-300, rgba(0,0,0,.14)) var(--slider-value) 100%);
 }
 
-.slider .rangeslider .rangeslider__fill {
-  @apply bg-c-100 shadow-none rounded-none;
-}
-
-.slider .rangeslider .rangeslider__handle {
-  @apply border border-c-300 outline-none size-7 text-white bg-white;
+.slider input[type="range"]::-webkit-slider-thumb {
+  @apply appearance-none size-7 rounded-full border border-c-300 bg-white;
   box-shadow: -3px 0px 8px 0px rgba(17, 17, 17, 0.15);
 }
 
-.slider .rangeslider .rangeslider__handle::after {
-  @apply hidden;
+.slider input[type="range"]::-moz-range-thumb {
+  @apply size-7 rounded-full border border-c-300 bg-white;
+  box-shadow: -3px 0px 8px 0px rgba(17, 17, 17, 0.15);
 }
 
 /* Switch Toggle */

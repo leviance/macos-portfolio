@@ -1,5 +1,4 @@
 import React from "react";
-import "react-rangeslider/lib/index.css";
 
 interface WifiMenuProps {
   toggleWifiMenu: () => void;

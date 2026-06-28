@@ -1,6 +1,4 @@
 import React, { useRef } from "react";
-import Slider from "react-rangeslider";
-import "react-rangeslider/lib/index.css";
 import { motion } from "framer-motion";
 import music from "~/configs/music";
 import { useWindowSize } from "~/hooks/useWindowSize";
@@ -23,13 +21,14 @@ const SliderComponent = ({ icon, value, setValue, dark }: SliderProps) => (
         <img src={icon} alt="" style={{ width: "14px", height: "14px", filter: dark ? "invert(1)" : "none", opacity: 0.7 }} />
       )}
     </div>
-    <Slider
+    <input
+      type="range"
       min={1}
       max={100}
       value={value}
-      tooltip={false}
-      orientation="horizontal"
-      onChange={(v: number) => setValue(v)}
+      aria-label={icon}
+      onChange={(event) => setValue(Number(event.target.value))}
+      style={{ "--slider-value": `${value}%` } as React.CSSProperties}
     />
   </div>
 );
