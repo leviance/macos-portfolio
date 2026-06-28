@@ -16,25 +16,13 @@ Core profile:
 
 ## Screenshots
 
-Add project screenshots here to give visitors a quick visual preview.
+| Login Screen | Desktop Home |
+|---|---|
+| ![Login screen](./docs/screenshots/login-screen.png) | ![Desktop home](./docs/screenshots/home-screen.png) |
 
-Recommended screenshots:
-
-- Lock screen and login flow
-- Default desktop with Resume and Terminal open
-- Finder / Project Notes project view
-- Terminal command interaction
-- VS Code Viewer or Browser view
-- Settings / Photos / Notes polish shots
-
-Example Markdown layout:
-
-```md
-![Lock screen](./docs/screenshots/lock-screen.png)
-![Desktop overview](./docs/screenshots/desktop-overview.png)
-![Terminal commands](./docs/screenshots/terminal.png)
-![Finder projects](./docs/screenshots/finder-projects.png)
-```
+| Safari Browser | VS Code Viewer |
+|---|---|
+| ![Safari browser showing Identra](./docs/screenshots/open-safari-screen.png) | ![VS Code viewer](./docs/screenshots/open-vscode-screen.png) |
 
 ## Features
 
